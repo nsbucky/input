@@ -1,0 +1,4 @@
+Input
+=====
+
+simple input class
