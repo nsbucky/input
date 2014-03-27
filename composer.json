@@ -1,0 +1,24 @@
+{
+    "name": "nsbucky/Input",
+    "type": "library",
+    "description": "A simple input class",
+    "keywords": ["input","request", "sanitize"],
+    "homepage": "https://github.com/nsbucky/Input",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kenrick Buchanan",
+            "email": "nsbucky@gmail.com",
+            "homepage": "http://thebusypixel.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-filter": "*"
+    },
+    "autoload": {
+        "psr-0": { 
+            "Input": "src/"
+        }
+    }
+}
