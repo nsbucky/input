@@ -1,12 +1,12 @@
 # Input
-=====
-
-Lighweight utility class to deal with request input variables.
+Lightweight utility class to deal with request input variables.
 
 ## Usage
     $input = new \Input\Post(); // Get/Server/Cookie/Env or Your Array using \Input\Container( array );
 
     $value = $input->value('my_post_val', 'default_value');
+
+    $bool = $input->has('var1');
 
     $all = $input->all();
 
