@@ -17,7 +17,7 @@ class Container extends Input {
      */
     public function has( $name )
     {
-        return array_key_exists( $name, $this->parameters );
+        return array_key_exists( $name, $this->input );
     }
 
 }

@@ -50,8 +50,7 @@ class Sanitize
      */
     public function float()
     {
-        return filter_var( $this->value, [
-            'filter' => FILTER_SANITIZE_NUMBER_FLOAT,
+        return filter_var( $this->value, FILTER_SANITIZE_NUMBER_FLOAT, [
             'flags'  => FILTER_FLAG_ALLOW_FRACTION
         ] );
     }

@@ -12,7 +12,7 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
 
     protected $inputType;
 
-    protected $parameters = [];
+    protected $input = [];
 
     /**
      * @param integer $inputType
@@ -32,22 +32,22 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
 
         switch( $inputType ) {
             case INPUT_GET:
-                $this->parameters = $_GET;
+                $this->input = $_GET;
                 break;
             case INPUT_POST:
-                $this->parameters = $_POST;
+                $this->input = $_POST;
                 break;
             case INPUT_COOKIE:
-                $this->parameters = $_COOKIE;
+                $this->input = $_COOKIE;
                 break;
             case INPUT_SERVER:
-                $this->parameters = $_SERVER;
+                $this->input = $_SERVER;
                 break;
             case INPUT_ENV:
-                $this->parameters = $_ENV;
+                $this->input = $_ENV;
                 break;
             case self::INPUT_ARRAY:
-                $this->parameters = $inputArray;
+                $this->input = $inputArray;
                 break;
         }
     }
@@ -59,21 +59,11 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
      */
     public function value($name, $defaultValue = null)
     {
-        // if it has the variable, but the variable is actually empty
-        // its safe to assume that if the defaultValue is set, then
-        // we at least want that, not an empty value.
-        if( $this->has( $name ) && ! is_null( $defaultValue) ) {
-            return empty( $this->parameters[ $name ] ) ? $defaultValue : $this->parameters[ $name ];
+        if( $this->has($name) ) {
+            return $this->input[ $name ];
         }
 
-        // if the variable doesn't even exist in the request, well then just return
-        // the defaultValue.
-        if( ! $this->has( $name ) ) {
-            return $defaultValue;
-        }
-
-        // nothing.
-        return null;
+        return $defaultValue;
     }
 
     /**
@@ -82,7 +72,21 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
      */
     public function has( $name )
     {
-        return filter_has_var( $this->inputType, $name );
+        if( count( func_get_args() ) > 1 ) {
+            foreach( func_get_args() as $value ) {
+                if( !$this->has( $value ) ) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        if( is_bool( $this->input( $name ) ) || is_array( $this->input( $name ) ) ) {
+            return true;
+        }
+
+        return trim( (string) $this->input( $name ) ) !== '';
     }
 
     /**
@@ -90,7 +94,7 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
      */
     public function all()
     {
-        return $this->parameters;
+        return $this->input;
     }
 
     /**
@@ -102,10 +106,10 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
         $args = func_get_args();
 
         if( is_array( $args[0] ) ) {
-            return array_intersect_key( $this->parameters, array_flip( $args[0] ) );
+            return array_intersect_key( $this->input, array_flip( $args[0] ) );
         }
 
-        return array_intersect_key( $this->parameters, array_flip( $args ) );
+        return array_intersect_key( $this->input, array_flip( $args ) );
     }
 
     /**
@@ -117,10 +121,10 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
         $args = func_get_args();
 
         if( is_array( $args[0] ) ) {
-            return array_diff_key( $this->parameters, array_flip( $args[0] ) );
+            return array_diff_key( $this->input, array_flip( $args[0] ) );
         }
 
-        return array_diff_key( $this->parameters, array_flip( $args ) );
+        return array_diff_key( $this->input, array_flip( $args ) );
     }
 
     /**
@@ -163,7 +167,7 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
      */
     public function getIterator()
     {
-        return new ArrayIterator( $this->parameters );
+        return new ArrayIterator( $this->input );
     }
 
     /**
@@ -171,7 +175,7 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
      */
     public function count()
     {
-        return count( $this->parameters );
+        return count( $this->input );
     }
 
     /**
@@ -204,8 +208,8 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
             $negate = true;
         }
 
-        $key              = $args[0];
-        $validator        = new Validate( $this->value($key) );
+        $key       = $args[0];
+        $validator = new Validate( $this->value($key) );
 
         switch( count($args) ) {
             case 2:
