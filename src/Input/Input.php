@@ -8,20 +8,24 @@ use \ArrayIterator;
 
 class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable {
 
+    const INPUT_ARRAY = 6;
+
     protected $inputType;
 
     protected $parameters = [];
 
     /**
      * @param integer $inputType
+     * @param array $inputArray
      * @throws \RuntimeException
      */
-    protected function __construct($inputType)
+    protected function __construct($inputType, array $inputArray = [])
     {
-        $allowedInputs = [INPUT_GET, INPUT_POST, INPUT_COOKIE, INPUT_SERVER, INPUT_ENV];
+        $allowedInputs = [INPUT_GET, INPUT_POST, INPUT_COOKIE, INPUT_SERVER, INPUT_ENV, self::INPUT_ARRAY];
 
         if( ! in_array( $inputType, $allowedInputs) ) {
-            throw new \RuntimeException('You must specify a valid PHP Input type: INPUT_GET, INPUT_POST, INPUT_COOKIE, INPUT_SERVER, or INPUT_ENV');
+            throw new \RuntimeException('You must specify a valid PHP Input type: INPUT_GET, INPUT_POST, INPUT_COOKIE,
+            INPUT_SERVER, or INPUT_ENV. You can also set an array with seLf::INPUT_ARRAY');
         }
 
         $this->inputType = $inputType;
@@ -41,6 +45,9 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
                 break;
             case INPUT_ENV:
                 $this->parameters = $_ENV;
+                break;
+            case self::INPUT_ARRAY:
+                $this->parameters = $inputArray;
                 break;
         }
     }
