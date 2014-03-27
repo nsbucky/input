@@ -9,7 +9,7 @@ class Sanitize
      * add closure filters: function($value){...}
      * @var array
      */
-    public static $filters = [ ];
+    protected static $filters = [];
 
     /**
      * @param $value
@@ -98,6 +98,17 @@ class Sanitize
             $func = self::$filters[$method];
 
             return $func( $this->value );
+        }
+    }
+
+    /**
+     * @param $name
+     * @param $filter
+     */
+    public static function addFilter( $name, $filter )
+    {
+        if( is_callable( $filter )) {
+            self::$filters[ $name ] = $filter;
         }
     }
 

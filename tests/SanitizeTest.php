@@ -58,4 +58,14 @@ class SanitizeTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('http://www.balls.com', $s->url());
     }
 
+    public function testAddFilter()
+    {
+        Sanitize::addFilter('removeTest', function($value){
+            return str_replace('test','', $value);
+        });
+
+        $s = new Sanitize('testicles');
+        $this->assertEquals('icles', $s->removeTest());
+    }
+
 }
