@@ -262,7 +262,7 @@ class File extends \SplFileInfo {
      * @param $size
      * @return bool
      */
-    public function hasCorrectSize( $size )
+    public function notBiggerThan( $size )
     {
         return $this->getSize() <= self::getMaxFilesize($size);
     }

@@ -95,7 +95,7 @@ class FilesTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals( 'csv', $file->getExtension() );
 
-        $this->assertTrue( $file->hasExtension(['csv']) );
+        $this->assertTrue( $file->hasExtension('csv') );
 
     }
 
@@ -104,13 +104,13 @@ class FilesTest extends PHPUnit_Framework_TestCase {
 
         $file = $this->files->get('validate');
 
-        $this->assertTrue( $file->hasMimeType(['text/csv']) );
+        $this->assertTrue( $file->hasMimeType('text/csv') );
     }
 
-    public function testHasCorrectSize()
+    public function testNotBiggerThan()
     {
         $file = $this->files->get('validate');
-        $this->assertTrue( $file->hasCorrectSize( '1M' ) );
+        $this->assertTrue( $file->notBiggerThan( '1M' ) );
     }
 
     public function testHasError()

@@ -26,5 +26,23 @@ PHP 5.4 + only.
     $bool = $input->isAlpha('alpha_var');
     $bool = $input->notAlpha('number_var');
 
-## TODO
-File upload is on its way. Some cookie manipulation as well.
+## Files
+    $files = new \Input\Files();
+
+    // get single file
+    // returns instance of \SplFileInfo
+    $file = $files->get('filename');
+
+    // returns instance of new moved file
+    $uploadedFile = $file->move('/path/to/dir');
+
+    // can rename files
+    $file->setName('newname');
+    $uploadedFile = $file->move('/path/to/dir'); // will be named to 'newname'
+
+    // can validate the files
+    $bool = $file->hasExtension('pdf');
+    $bool = $file->hasExtension(['jpg','png','gif']);
+    $bool = $file->hasMimeType('pdf');
+    $bool = $file->hasMimeType(['image/jpeg','image/png']);
+    $bool = $file->notBiggerThan('1M'); // in bytes or k/m/g/t
