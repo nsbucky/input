@@ -1,5 +1,7 @@
 # Input
-Lightweight utility class to deal with request input variables.
+Lightweight utility package to deal with request input variables.
+
+PHP 5.4 + only.
 
 ## Usage
     $input = new \Input\Post(); // Get/Server/Cookie/Env or Your Array using \Input\Container( array );

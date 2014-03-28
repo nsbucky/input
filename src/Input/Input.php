@@ -1,5 +1,7 @@
 <?php namespace Input;
 
+require_once 'AccessTrait.php';
+
 use \IteratorAggregate;
 use \ArrayAccess;
 use \Countable;
@@ -8,11 +10,11 @@ use \ArrayIterator;
 
 class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable {
 
+    use AccessTrait;
+
     const INPUT_ARRAY = 6;
 
     protected $inputType;
-
-    protected $input = [];
 
     /**
      * @param integer $inputType
@@ -52,80 +54,7 @@ class Input implements InputInterface, IteratorAggregate, ArrayAccess, Countable
         }
     }
 
-    /**
-     * @param $name
-     * @param null $defaultValue
-     * @return mixed
-     */
-    public function value($name, $defaultValue = null)
-    {
-        if( $this->has($name) ) {
-            return $this->input[ $name ];
-        }
 
-        return $defaultValue;
-    }
-
-    /**
-     * @param $name
-     * @return bool
-     */
-    public function has( $name )
-    {
-        if( count( func_get_args() ) > 1 ) {
-            foreach( func_get_args() as $value ) {
-                if( !$this->has( $value ) ) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        if( is_bool( $this->input( $name ) ) || is_array( $this->input( $name ) ) ) {
-            return true;
-        }
-
-        return trim( (string) $this->input( $name ) ) !== '';
-    }
-
-    /**
-     * @return array
-     */
-    public function all()
-    {
-        return $this->input;
-    }
-
-    /**
-     * @param mixed $wanted
-     * @return array
-     */
-    public function only( $wanted )
-    {
-        $args = func_get_args();
-
-        if( is_array( $args[0] ) ) {
-            return array_intersect_key( $this->input, array_flip( $args[0] ) );
-        }
-
-        return array_intersect_key( $this->input, array_flip( $args ) );
-    }
-
-    /**
-     * @param mixed $notWanted
-     * @return array
-     */
-    public function except( $notWanted )
-    {
-        $args = func_get_args();
-
-        if( is_array( $args[0] ) ) {
-            return array_diff_key( $this->input, array_flip( $args[0] ) );
-        }
-
-        return array_diff_key( $this->input, array_flip( $args ) );
-    }
 
     /**
      * @param mixed $offset

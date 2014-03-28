@@ -1,0 +1,29 @@
+"Field Name",Label," Field Type",Required,"Accepted Values"
+cid,"Campaign ID",integer,yes,59
+afid,"Affiliate ID",integer,yes,7
+sid,"Unique ID","string 100 chars max",no,
+crid,"Creative ID",integer,no,
+first_name,"First Name","String: Limited to 30 characters",yes,
+last_name,"Last Name","String: Limited to 30 characters",yes,
+email,"Email Address","String: Limited to 100 characters",no,
+address,Address,"String: Limited to 128 characters",yes,
+city,City,"String: Limited to 100 characters",yes,
+state,State,"String: must be one of the allowed values. Case sensitive.",yes,"AL, AK, AZ, AR, CA, CO, CT, DE, DC, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY"
+zip,"Zip Code","Number: Limited to 5 characters",yes,
+phone,Phone,"String: Limited to 10 characters",yes,
+message,Message,"String: Limited to 1000 characters",yes,
+best_time,"Best Time","String: must be one of the allowed values. Case sensitive.",no,"am, pm"
+age,Age,Number,no,
+smoker,Smoker,"String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+heart_failure,"Heart Failure","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+heart_attack,"Heart Attack","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+heart_failure_death,"Heart Failure Death","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+stroke,Stroke,"String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+macular_edema,"Macular Edema","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+liver_failure,"Liver Failure","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+bone_fractures,"Bone Fractures","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+other,Other,"String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+injured_while_taking_actos,"Injured While Taking Actos","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+bladder_cancer,"Bladder Cancer","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+bladder_removal,"Bladder Removal","String: must be one of the allowed values. Case sensitive.",no,"yes, no"
+diabetes,Diabetes,"String: must be one of the allowed values. Case sensitive.",no,"yes, no"
