@@ -1,5 +1,5 @@
 {
-    "name": "nsbucky/Input",
+    "name": "nsbucky/input",
     "type": "library",
     "description": "A simple input class",
     "keywords": ["input","request", "sanitize"],
