@@ -1,5 +1,5 @@
 # Input
-Lightweight utility package to deal with request input variables.
+Lightweight utility package to deal with request input variables. Probably dead
 
 PHP 5.4 + only.
 
